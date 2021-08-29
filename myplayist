@@ -1,0 +1,155 @@
+#include <iostream>
+#include <windows.h>
+#include <MMSystem.h>
+#include<iomanip>
+using namespace std;
+
+# define n 5
+string stack[n];
+int top=-1;
+string x;
+
+void first_page()
+{
+    cout<<"This is a program where you can create a playlist from the given songs"<<endl;
+    cout<<"This project is made by:"<<endl;
+    cout<<"Sheril Rstogi"<<endl;
+    cout<<"Enter the song code for adding songs to the playlist...\n Codes are given below"<<endl;
+    cout << setw(5) << "Sl. No:" << setw(15) << "Song Name" << setw(15) << "code" << endl << endl;
+    cout << setw(5) << 1 << setw(15) << "Nayan" << setw(15) << "nayan" << endl;
+    cout << setw(5) << 2 << setw(15) << "Afreen Afreen" << setw(15) << "afreen" << endl;
+    cout << setw(5) << 3 << setw(15) << "Tere Mere" << setw(15) << "tm" << endl;
+    cout << setw(5) << 4 << setw(15) << "Happy Birthday" << setw(15) << "hbd" << endl;
+    cout<<endl<<endl;
+
+}
+
+void insert_song()
+{
+    cout<<"Enter the song Code: "<<endl;
+    cin>>x;
+    if(top==-1)
+    {
+        top=0;
+        stack[top]=x;
+    }
+    else if (top==n)
+    {
+        cout<<"\n Playlist is full";
+    }
+    else
+    {
+        top=top+1;
+        stack[top]=x;
+    }
+}
+void delete_song()
+{
+    if(top==-1)
+    {
+        cout<<"\n Playlist is empty";
+    }
+    else
+    {
+        top--;
+    }
+}
+void display_name_of_song()
+{
+    int i=0;
+    if(top==-1)
+    {
+        cout<<"\n Playlist is empty";
+    }
+    else
+    {
+        while(i!=top)
+        {
+            if(stack[i]=="tm")
+                cout<<"Tere Mere"<<endl;
+            else if(stack[i]=="afreen")
+                cout<<"Afreen Afreen"<<endl;
+            else if(stack[i]=="hbd")
+                cout<<"Aww Tera Happy Birthday"<<endl;
+            else if(stack[i]=="nayan")
+                cout<<"Nayan"<<endl;
+            i++;
+        }
+        if(stack[top]=="tm")
+            cout<<"Tere Mere"<<endl;
+        else if(stack[top]=="afreen")
+            cout<<"Afreen Afreen"<<endl;
+        else if(stack[top]=="hbd")
+            cout<<"Aww Tera Happy Birthday"<<endl;
+        else if(stack[top]=="nayan")
+            cout<<"Nayan"<<endl;
+    }
+}
+void Play_song()
+{
+    int i=0;
+    if(top==-1)
+    {
+        cout<<"\n Playlist is empty";
+    }
+    else
+    {
+        x=stack[top];
+        while(i!=top)
+        {
+            cout<<"Playing the recently inserted song:";
+            if (x=="nayan")
+                PlaySound(TEXT("nayan"), NULL, SND_SYNC);
+            else if (x=="tm")
+                PlaySound(TEXT("tm"), NULL, SND_SYNC);
+            else if (x=="hbd")
+                PlaySound(TEXT("hbd"), NULL, SND_SYNC);
+            else if (x=="afreen")
+                PlaySound(TEXT("afreen"), NULL, SND_SYNC);
+            i++;
+            x=stack[i];
+        }
+    }
+}
+int main()
+{
+    first_page();
+    int choice=1,temp,j=0;
+    while (choice)
+    {
+        insert_song();
+        cout<<"Do you want to insert more songs(1/0):";
+        cin>>choice;
+    }
+    cout<<"Current songs in the list are:"<<endl;
+    display_name_of_song();
+    cout<<"do you want to delete a song(1/0):";
+    cin>>temp;
+    while(temp)
+    {
+        cout<<"do you want to delete a song(1/0):";
+        cin>>temp;
+        cout<< "Deleting the first inserted songs from the playlist...\n";
+        delete_song();
+    }
+    cout<<"Current songs in the list are:"<<endl;
+    display_name_of_song();
+    cout<<"Do you want to insert more songs(1/0):";
+    cin>>choice;
+    while (choice)
+    {
+        insert_song();
+        cout<<"Do you want to insert more songs(1/0):";
+        cin>>choice;
+    }
+    cout<<"Current songs in the list are:"<<endl;
+    display_name_of_song();
+    int i=0;
+    while(i!=top)
+    {
+        Play_song();
+        i++;
+    }
+    Play_song();
+}
+ 
